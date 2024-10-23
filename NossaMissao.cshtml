@@ -1,0 +1,161 @@
+﻿@{
+    ViewData["Title"] = "Nossa Missão";
+}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilo do menu lateral (off-canvas sidebar) */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #3e2723; /* Marrom */
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            z-index: 1000; /* Valor alto para sobrepor */
+        }
+
+            .sidebar a {
+                padding: 10px 15px;
+                text-decoration: none;
+                font-size: 18px;
+                color: white;
+                display: block;
+                transition: 0.3s;
+            }
+
+                .sidebar a:hover {
+                    background-color: #575757;
+                }
+
+            .sidebar .closebtn {
+                position: absolute;
+                top: 0;
+                right: 10px;
+                font-size: 36px;
+            }
+
+        /* Estilo para empurrar o conteúdo quando o menu abrir */
+        #main {
+            transition: margin-left 0.5s;
+            padding: 16px;
+        }
+
+        /* Definição da classe btn-brown */
+        .btn-brown {
+            background-color: #6D4C41;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+            .btn-brown:hover {
+                background-color: #5d3d35;
+            }
+
+        /* Ajustes de margin para evitar conflito com o menu lateral */
+        body {
+            padding-left: 0;
+            background-color: #f8f9fa;
+        }
+
+        .content {
+            margin-top: 50px;
+        }
+
+        .title {
+            font-size: 2rem;
+            color: #6D4C41;
+        }
+
+        .text-section {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .image-section {
+            text-align: right;
+        }
+
+            .image-section img {
+                max-width: 100%;
+            }
+    </style>
+</head>
+<body>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="@Url.Action("Login", "Home")">Entrar ou Cadastre-se</a>
+        <a href="/meus-pedidos">Meus Pedidos</a>
+        <a href="@Url.Action("SobreNos", "Home")">Sobre Nós</a>
+        <a href="@Url.Action("Portfolio", "Home")">Portfólio</a>
+        <a href="@Url.Action("NossaMissao", "Home")">Nossa Missão</a>
+        <a href="@Url.Action("DuvidasFrequentes", "Home")">Dúvidas Frequentes</a>
+        <a href="@Url.Action("FaleConosco", "Home")">Fale Conosco</a>
+    </div>
+
+    <div id="main">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-brown">
+            <a class="navbar-brand" href="javascript:void(0)" onclick="openNav()">Menu</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="navbar-brand" href="/">
+                            <!-- <a class="nav-link" href="/">Coffee Tech</a> -->
+                            <img src="/imagens/logo-coffeetech.png" alt="Fazenda Urbana Café" style="height: 40px;">
+                        </a>
+                    </li>
+                    <!-- Outras opções -->
+                </ul>
+            </div>
+
+            <!-- Botões de usuário -->
+            <div class="form-inline">
+                <a href="@Url.Action("Carrinho", "Cart")" class="btn btn-outline-light">Carrinho</a>
+                <a href="@Url.Action("Login", "Home")" class="btn btn-outline-light ml-2">Login</a>
+            </div>
+        </nav>
+    </div>
+
+
+        <!-- Conteúdo da página -->
+        <div class="container content">
+            <h1 class="title text-center">NOSSA MISSÃO</h1>
+            <div class="row">
+                <div class="col-md-4 image-section">
+                <img src="~/imagens/xicara-cafe.png" class="imagem-nossamissao rounded" alt="Xícara de Café">
+                </div>
+                <div class="col-md-8 text-section">
+                <p> Nossa missão no Coffee Tech é proporcionar experiências extraordinárias aos amantes de café em todo o mundo, oferecendo produtos de alta qualidade que refletem nossa paixão pela excelência e nosso compromisso com a sustentabilidade.
+                    <br><br>
+                    Buscamos promover um impacto positivo em todas as etapas da cadeia de produção, desde o cultivo responsável dos grãos até a experiência final na xícara. Nosso objetivo é não apenas fornecer um café excepcional, mas também inspirar um estilo de vida consciente e valorizar as comunidades que nos apoiam.
+                </p>
+                    <!-- Continue o texto aqui -->
+                </div>
+            </div>
+        </div>
+
+    <script>
+        // Funções para abrir e fechar o menu lateral
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
+</body>
+</html>

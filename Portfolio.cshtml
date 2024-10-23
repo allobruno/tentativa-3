@@ -1,0 +1,229 @@
+﻿@{
+    ViewData["Title"] = "Portfolio";
+}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilo do menu lateral (off-canvas sidebar) */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #3e2723; /* Marrom */
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            z-index: 1000; /* Valor alto para sobrepor */
+        }
+
+            .sidebar a {
+                padding: 10px 15px;
+                text-decoration: none;
+                font-size: 18px;
+                color: white;
+                display: block;
+                transition: 0.3s;
+            }
+
+                .sidebar a:hover {
+                    background-color: #575757;
+                }
+
+            .sidebar .closebtn {
+                position: absolute;
+                top: 0;
+                right: 10px;
+                font-size: 36px;
+            }
+
+        /* Estilo para empurrar o conteúdo quando o menu abrir */
+        #main {
+            transition: margin-left 0.5s;
+            padding: 16px;
+        }
+
+        /* Definição da classe btn-brown */
+        .btn-brown {
+            background-color: #6D4C41;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+            .btn-brown:hover {
+                background-color: #5d3d35;
+            }
+
+        /* Ajustes de margin para evitar conflito com o menu lateral */
+        body {
+            padding-left: 0;
+            background-color: #f8f9fa;
+        }
+
+        .content {
+            margin-top: 50px;
+        }
+
+        .title {
+            font-size: 2rem;
+            color: #6D4C41;
+        }
+
+        .text-section {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .image-section {
+            text-align: right;
+        }
+
+            .image-section img {
+                max-width: 100%;
+            }
+    </style>
+</head>
+<body>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="@Url.Action("Login", "Home")">Entrar ou Cadastre-se</a>
+        <a href="/meus-pedidos">Meus Pedidos</a>
+        <a href="@Url.Action("SobreNos", "Home")">Sobre Nós</a>
+        <a href="@Url.Action("Portfolio", "Home")">Portfólio</a>
+        <a href="@Url.Action("NossaMissao", "Home")">Nossa Missão</a>
+        <a href="@Url.Action("DuvidasFrequentes", "Home")">Dúvidas Frequentes</a>
+        <a href="@Url.Action("FaleConosco", "Home")">Fale Conosco</a>
+    </div>
+
+    <div id="main">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-brown">
+            <a class="navbar-brand" href="javascript:void(0)" onclick="openNav()">Menu</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="navbar-brand" href="/">
+                            <!-- <a class="nav-link" href="/">Coffee Tech</a> -->
+                            <img src="/imagens/logo-coffeetech.png" alt="Fazenda Urbana Café" style="height: 40px;">
+                        </a>
+                    </li>
+                    <!-- Outras opções -->
+                </ul>
+            </div>
+
+            <!-- Botões de usuário -->
+            <div class="form-inline">
+                <a href="@Url.Action("Carrinho", "Cart")" class="btn btn-outline-light">Carrinho</a>
+                <a href="@Url.Action("Login", "Home")" class="btn btn-outline-light ml-2">Login</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="catalogo">
+        <!-- Arábica -->
+        <a href="@Url.Action("AddToCart", "Cart", new { id = 1, imageUrl = "/imagens/imagem-arabica.png", name = "Café Arábica", price = 250 })" class="item-catalogo">
+            <div class="imagem-catalogo">
+                <img src="~/imagens/imagem-arabica.png" alt="Arábica" style="width: 100%;">
+            </div>
+            <div class="descricao-catalogo" style="background-color: #3e2723; color: white; padding: 10px;">
+                <h3>Arábica</h3>
+                <p>Café Arábica: grão fino e suave, amplamente popular, usado em cafés especiais. Representa cerca de 60% da produção mundial.</p>
+                <p><strong>R$250,00</strong></p>
+            </div>
+        </a>
+
+        <!-- Acaiá -->
+        <a href="@Url.Action("AddToCart", "Cart", new { id = 2, imageUrl = "/imagens/imagem-acaia.png", name = "Café Acaiá", price = 250 })" class="item-catalogo">
+            <div class="imagem-catalogo">
+                <img src="~/imagens/imagem-acaia.png" alt="Acaiá" style="width: 100%;">
+            </div>
+            <div class="descricao-catalogo" style="background-color: #3e2723; color: white; padding: 10px;">
+                <h3>Acaiá</h3>
+                <p>Café Acaiá: Grão original brasileiro com notas suaves, corpo médio e com aroma intenso. Muito usado em blends de alta qualidade.</p>
+                <p><strong>R$250,00</strong></p>
+            </div>
+        </a>
+
+        <!-- Bourbon -->
+        <a href="@Url.Action("AddToCart", "Cart", new { id = 3, imageUrl = "/imagens/imagem-bourbon.png", name = "Café Bourbon", price = 250 })" class="item-catalogo">
+            <div class="imagem-catalogo">
+                <img src="~/imagens/imagem-bourbon.png" alt="Bourbon" style="width: 100%;">
+            </div>
+            <div class="descricao-catalogo" style="background-color: #3e2723; color: white; padding: 10px;">
+                <h3>Bourbon</h3>
+                <p>Café Bourbon: Variedade doce e delicada, apreciada em cafés gourmet. Popular por sua acidez equilibrada e com sabor complexo.</p>
+                <p><strong>R$250,00</strong></p>
+            </div>
+        </a>
+
+        <!-- Catuaí -->
+        <a href="@Url.Action("AddToCart", "Cart", new { id = 4, imageUrl = "/imagens/imagem-catuaí.png", name = "Café Catuaí", price = 250 })" class="item-catalogo">
+            <div class="imagem-catalogo">
+                <img src="~/imagens/imagem-catuaí.png" alt="Catuaí" style="width: 100%;">
+            </div>
+            <div class="descricao-catalogo" style="background-color: #3e2723; color: white; padding: 10px;">
+                <h3>Catuaí</h3>
+                <p>Café Catuaí: Híbrido muito produtivo, resistente e versátil, com sabor suave e corpo médio. Amplamente cultivado no Brasil.</p>
+                <p><strong>R$250,00</strong></p>
+            </div>
+        </a>
+
+        <!-- Geisha -->
+        <a href="@Url.Action("AddToCart", "Cart", new { id = 5, imageUrl = "/imagens/imagem-geisha.png", name = "Café Geisha", price = 250 })" class="item-catalogo">
+            <div class="imagem-catalogo">
+                <img src="~/imagens/imagem-geisha.png" alt="Geisha" style="width: 100%;">
+            </div>
+            <div class="descricao-catalogo" style="background-color: #3e2723; color: white; padding: 10px;">
+                <h3>Geisha</h3>
+                <p>Café Geisha: Grão premium de origem etíope, conhecido por sua doçura floral e alta acidez. Muito valorizado no mercado de cafés especiais.</p>
+                <p><strong>R$250,00</strong></p>
+            </div>
+        </a>
+
+        <!-- Kona -->
+        <a href="@Url.Action("AddToCart", "Cart", new { id = 6, imageUrl = "/imagens/imagem-kona.png", name = "Café Kona", price = 250 })" class="item-catalogo">
+            <div class="imagem-catalogo">
+                <img src="~/imagens/imagem-kona.png" alt="Kona" style="width: 100%;">
+            </div>
+            <div class="descricao-catalogo" style="background-color: #3e2723; color: white; padding: 10px;">
+                <h3>Kona</h3>
+                <p>Café Kona: Variedade cultivada no Havaí, de sabor suave e aromático. Grão exclusivo e apreciado por seu corpo leve e baixa acidez.</p>
+                <p><strong>R$250,00</strong></p>
+            </div>
+        </a>
+
+        <!-- Robusta -->
+        <a href="@Url.Action("AddToCart", "Cart", new { id = 7, imageUrl = "/imagens/imagem-robusta.png", name = "Café Robusta", price = 250 })" class="item-catalogo">
+            <div class="imagem-catalogo">
+                <img src="~/imagens/imagem-robusta.png" alt="Robusta" style="width: 100%;">
+            </div>
+            <div class="descricao-catalogo" style="background-color: #3e2723; color: white; padding: 10px;">
+                <h3>Robusta</h3>
+                <p>Café Robusta: Grão encorpado e amargo, com maior teor de cafeína. Usado em blends e cafés instantâneos. Representa 40% da produção mundial.</p>
+                <p><strong>R$250,00</strong></p>
+            </div>
+        </a>
+    </div>
+
+            <script>
+                // Funções para abrir e fechar o menu lateral
+                function openNav() {
+                    document.getElementById("mySidebar").style.width = "250px";
+                    document.getElementById("main").style.marginLeft = "250px";
+                }
+
+                function closeNav() {
+                    document.getElementById("mySidebar").style.width = "0";
+                    document.getElementById("main").style.marginLeft = "0";
+                }
+            </script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+﻿@{
+    ViewData["Title"] = "Meus Pedidos";
+}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Lateral</title>
+    <!-- Bootstrap CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilo do menu lateral (off-canvas sidebar) */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #3e2723; /* Marrom */
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            z-index: 1000; /* Valor alto para sobrepor */
+        }
+
+            .sidebar a {
+                padding: 10px 15px;
+                text-decoration: none;
+                font-size: 18px;
+                color: white;
+                display: block;
+                transition: 0.3s;
+            }
+
+                .sidebar a:hover {
+                    background-color: #575757;
+                }
+
+            .sidebar .closebtn {
+                position: absolute;
+                top: 0;
+                right: 10px;
+                font-size: 36px;
+            }
+
+        /* Estilo para empurrar o conteúdo quando o menu abrir */
+        #main {
+            transition: margin-left 0.5s;
+            padding: 16px;
+        }
+
+        /* Definição da classe btn-brown */
+        .btn-brown {
+            background-color: #6D4C41;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+            .btn-brown:hover {
+                background-color: #5d3d35;
+            }
+
+        /* Ajustes de margin para evitar conflito com o menu lateral */
+        body {
+            padding-left: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="@Url.Action("Login", "Home")">Entrar ou Cadastre-se</a>
+        <a href="/meus-pedidos">Meus Pedidos</a>
+        <a href="@Url.Action("SobreNos", "Home")">Sobre Nós</a>
+        <a href="@Url.Action("Portfolio", "Home")">Portfólio</a>
+        <a href="@Url.Action("NossaMissao", "Home")">Nossa Missão</a>
+        <a href="@Url.Action("DuvidasFrequentes", "Home")">Dúvidas Frequentes</a>
+        <a href="@Url.Action("FaleConosco", "Home")">Fale Conosco</a>
+    </div>
+
+    <div id="main">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-brown">
+            <a class="navbar-brand" href="javascript:void(0)" onclick="openNav()">Menu</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="navbar-brand" href="/">
+                            <!-- <a class="nav-link" href="/">Coffee Tech</a> -->
+                            <img src="/imagens/logo-coffeetech.png" alt="Fazenda Urbana Café" style="height: 40px;">
+                        </a>
+                    </li>
+                    <!-- Outras opções -->
+                </ul>
+            </div>
+
+            <!-- Botões de usuário -->
+            <div class="form-inline">
+                <a href="@Url.Action("Login", "Home")" class="btn btn-outline-light ml-2">Login</a>
+            </div>
+        </nav>
+    </div>
+
+    @model List<PedidoViewModel>
+    <div class="container">
+        <h1 class="title">Meus Pedidos</h1>
+        <p class="subtitle">Aqui você encontra os resumos das suas compras realizadas</p>
+
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var pedido in Model)
+            {
+                <div class="pedido-card">
+                    <div class="pedido-info">
+                        <p><strong>Número do pedido:</strong> @pedido.NumeroPedido</p>
+                        <p><strong>Realizado em:</strong> @pedido.DataRealizacao.ToString("dd/MM/yyyy")</p>
+                        <p><strong>Previsão de entrega:</strong> @pedido.PrevisaoEntrega.ToString("dd/MM/yyyy")</p>
+                        <p><strong>Valor (@pedido.Itens.Count() itens):</strong> R$ @pedido.ValorTotal.ToString("0.00")</p>
+                    </div>
+
+                    <div class="pedido-cafes">
+                        @foreach (var item in pedido.Itens)
+                        {
+                            <div class="cafe-item">
+                                <img src="@item.ImageUrl" alt="@item.Name" class="cafe-img" />
+                                <p>@item.Name</p>
+                                <p><strong>Quantidade:</strong> @item.Quantity kg</p>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="pedido-status">
+                        <p>Entrega em andamento</p>
+                    </div>
+
+                    <div class="pedido-acoes">
+                        <button class="btn btn-marron">Rastrear</button>
+                        <button class="btn btn-marron">Nota fiscal</button>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Você ainda não realizou nenhum pedido.</p>
+        }
+    </div>
+
+    <!-- CSS embutido -->
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .title {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .pedido-card {
+            background-color: #f8f8f8;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .pedido-info p {
+            margin: 5px 0;
+        }
+
+        .pedido-cafes {
+            display: flex;
+        }
+
+        .cafe-item {
+            margin-right: 15px;
+        }
+
+        .cafe-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .pedido-status {
+            margin-top: 10px;
+            color: green;
+        }
+
+        .pedido-acoes {
+            margin-top: 15px;
+        }
+
+        .btn-marron {
+            background-color: #6b4226;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+
+    <!-- JavaScript para abrir/fechar o menu lateral -->
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
+
+    <!-- Bootstrap JS e jQuery (necessário para colapsar o menu em dispositivos móveis) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
